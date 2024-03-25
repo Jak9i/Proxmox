@@ -174,17 +174,17 @@ msg_ok "Started Services"
 
 msg_info "Start Nextcloud Setup-Wizard"
 echo -e "export VISUAL=nano\nexport EDITOR=nano" >>/etc/profile
-cd /usr/share/webapps/nextcloud
-$STD su nextcloud -s /bin/sh -c "php82 occ maintenance:install \
---database='mysql' --database-name $DB_NAME \
---database-user '$DB_USER' --database-pass '$DB_PASS' \
---admin-user '$ADMIN_USER' --admin-pass '$ADMIN_PASS' \
---data-dir '/var/lib/nextcloud/data'"
-$STD su nextcloud -s /bin/sh -c 'php82 occ background:cron'
-rm -rf /usr/share/webapps/nextcloud/apps/serverinfo
-IP4=$(/sbin/ip -o -4 addr list eth0 | awk '{print $4}' | cut -d/ -f1)
-sed -i "/0 => \'localhost\',/a \    \1 => '$IP4'," /usr/share/webapps/nextcloud/config/config.php
-su nextcloud -s /bin/sh -c 'php82 -f /usr/share/webapps/nextcloud/cron.php'
+#cd /usr/share/webapps/nextcloud
+#$STD su nextcloud -s /bin/sh -c "php82 occ maintenance:install \
+#--database='mysql' --database-name $DB_NAME \
+#--database-user '$DB_USER' --database-pass '$DB_PASS' \
+#--admin-user '$ADMIN_USER' --admin-pass '$ADMIN_PASS' \
+#--data-dir '/var/lib/nextcloud/data'"
+#$STD su nextcloud -s /bin/sh -c 'php82 occ background:cron'
+#rm -rf /usr/share/webapps/nextcloud/apps/serverinfo
+#IP4=$(/sbin/ip -o -4 addr list eth0 | awk '{print $4}' | cut -d/ -f1)
+#sed -i "/0 => \'localhost\',/a \    \1 => '$IP4'," /usr/share/webapps/nextcloud/config/config.php
+#su nextcloud -s /bin/sh -c 'php82 -f /usr/share/webapps/nextcloud/cron.php'
 msg_ok "Finished Nextcloud Setup-Wizard"
 
 motd_ssh
